@@ -1,0 +1,6 @@
+﻿namespace Oyster.ApplicationCore.Interfaces;
+
+public interface IUriComposer
+{
+    string ComposePicUri(string uriTemplate);
+}
