@@ -4,6 +4,7 @@ using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Oyster.ApplicationCore.Constants;
 using Oyster.ApplicationCore.Entities;
 using Oyster.ApplicationCore.Exceptions;
 using Oyster.ApplicationCore.Interfaces;
@@ -12,7 +13,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Oyster.PublicApi.CatalogItemEndpoints;
 
-[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Roles = Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class Create : BaseAsyncEndpoint
     .WithRequest<CreateCatalogItemRequest>
     .WithResponse<CreateCatalogItemResponse>
@@ -45,7 +46,7 @@ public class Create : BaseAsyncEndpoint
             throw new DuplicateException($"A catalogItem with name {request.Name} already exists");
         }
 
-        var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);
+        var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogGenderTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);
         newItem = await _itemRepository.AddAsync(newItem, cancellationToken);
 
         if (newItem.Id != 0)
@@ -62,6 +63,7 @@ public class Create : BaseAsyncEndpoint
         {
             Id = newItem.Id,
             CatalogBrandId = newItem.CatalogBrandId,
+            CatalogGenderTypeId = newItem.CatalogGenderTypeId,
             CatalogTypeId = newItem.CatalogTypeId,
             Description = newItem.Description,
             Name = newItem.Name,

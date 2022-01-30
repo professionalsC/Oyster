@@ -12,10 +12,13 @@ public class CatalogItem : BaseEntity, IAggregateRoot
     public string PictureUri { get; private set; }
     public int CatalogTypeId { get; private set; }
     public CatalogType CatalogType { get; private set; }
+    public int CatalogGenderTypeId { get; private set; }
+    public CatalogGenderType CatalogGenderType { get; private set; }
     public int CatalogBrandId { get; private set; }
     public CatalogBrand CatalogBrand { get; private set; }
 
     public CatalogItem(int catalogTypeId,
+        int catalogGenderTypeId,
         int catalogBrandId,
         string description,
         string name,
@@ -23,6 +26,7 @@ public class CatalogItem : BaseEntity, IAggregateRoot
         string pictureUri)
     {
         CatalogTypeId = catalogTypeId;
+        CatalogGenderTypeId = catalogGenderTypeId;
         CatalogBrandId = catalogBrandId;
         Description = description;
         Name = name;
@@ -51,6 +55,11 @@ public class CatalogItem : BaseEntity, IAggregateRoot
     {
         Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));
         CatalogTypeId = catalogTypeId;
+    }
+    public void UpdateGenderType(int catalogGenderTypeId)
+    {
+        Guard.Against.Zero(catalogGenderTypeId, nameof(catalogGenderTypeId));
+        CatalogGenderTypeId = catalogGenderTypeId;
     }
 
     public void UpdatePictureUri(string pictureName)

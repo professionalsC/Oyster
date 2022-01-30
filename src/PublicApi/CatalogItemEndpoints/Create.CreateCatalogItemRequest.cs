@@ -3,6 +3,7 @@
 public class CreateCatalogItemRequest : BaseRequest
 {
     public int CatalogBrandId { get; set; }
+    public int CatalogGenderTypeId { get; set; }
     public int CatalogTypeId { get; set; }
     public string Description { get; set; }
     public string Name { get; set; }

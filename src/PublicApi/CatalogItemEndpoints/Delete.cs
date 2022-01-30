@@ -4,13 +4,14 @@ using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Oyster.ApplicationCore.Constants;
 using Oyster.ApplicationCore.Entities;
 using Oyster.ApplicationCore.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Oyster.PublicApi.CatalogItemEndpoints;
 
-[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Roles = Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class Delete : BaseAsyncEndpoint
     .WithRequest<DeleteCatalogItemRequest>
     .WithResponse<DeleteCatalogItemResponse>

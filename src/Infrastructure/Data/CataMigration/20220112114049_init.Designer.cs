@@ -9,22 +9,25 @@ using Oyster.Infrastructure.Data;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Data.Migrations
+namespace Oyster.Infrastructure.Data.CataMigration
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20211203100941_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220112114049_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.HasSequence("catalog_brand_hilo")
+                .IncrementsBy(10);
+
+            modelBuilder.HasSequence("catalog_gender_type_hilo")
                 .IncrementsBy(10);
 
             modelBuilder.HasSequence("catalog_hilo")
@@ -91,9 +94,30 @@ namespace Oyster.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("PictureUri")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CatalogBrands");
+                });
+
+            modelBuilder.Entity("Oyster.ApplicationCore.Entities.CatalogGenderType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "catalog_gender_type_hilo");
+
+                    b.Property<string>("GenderType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CatalogGenderTypes");
                 });
 
             modelBuilder.Entity("Oyster.ApplicationCore.Entities.CatalogItem", b =>
@@ -105,6 +129,9 @@ namespace Oyster.Infrastructure.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "catalog_hilo");
 
                     b.Property<int>("CatalogBrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CatalogGenderTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("CatalogTypeId")
@@ -127,6 +154,8 @@ namespace Oyster.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CatalogBrandId");
+
+                    b.HasIndex("CatalogGenderTypeId");
 
                     b.HasIndex("CatalogTypeId");
 
@@ -213,6 +242,12 @@ namespace Oyster.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Oyster.ApplicationCore.Entities.CatalogGenderType", "CatalogGenderType")
+                        .WithMany()
+                        .HasForeignKey("CatalogGenderTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Oyster.ApplicationCore.Entities.CatalogType", "CatalogType")
                         .WithMany()
                         .HasForeignKey("CatalogTypeId")
@@ -220,6 +255,8 @@ namespace Oyster.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("CatalogBrand");
+
+                    b.Navigation("CatalogGenderType");
 
                     b.Navigation("CatalogType");
                 });

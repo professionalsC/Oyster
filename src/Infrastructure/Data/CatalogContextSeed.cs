@@ -35,6 +35,13 @@ public class CatalogContextSeed
 
                 await catalogContext.SaveChangesAsync();
             }
+            if (!await catalogContext.CatalogGenderTypes.AnyAsync())
+            {
+                await catalogContext.CatalogGenderTypes.AddRangeAsync(
+                    GetPreconfiguredCatalogGenderTypes());
+
+                await catalogContext.SaveChangesAsync();
+            }
 
             if (!await catalogContext.CatalogItems.AnyAsync())
             {
@@ -60,22 +67,46 @@ public class CatalogContextSeed
     {
         return new List<CatalogBrand>
             {
-                new("Azure"),
-                new(".NET"),
-                new("Visual Studio"),
-                new("SQL Server"),
-                new("Other")
+                new("Adidash","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Anta","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("American Eagle","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Burberry","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Calvin Clan","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Gucci","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Dior","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Luis Vuitton","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Prada","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Tommy Hilfiger","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Zara","http://catalogbaseurltobereplaced/images/products/1.png")
             };
+    }
+    static IEnumerable<CatalogGenderType> GetPreconfiguredCatalogGenderTypes()
+    {
+        return new List<CatalogGenderType>
+            {
+                new("Male"),
+                new("Female"),
+                new("Child")
+        };
     }
 
     static IEnumerable<CatalogType> GetPreconfiguredCatalogTypes()
     {
         return new List<CatalogType>
             {
-                new("Mug"),
-                new("T-Shirt"),
-                new("Sheet"),
-                new("USB Memory Stick")
+                new("New Arrival","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Clothing","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Shoes","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Accessories","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Maternity","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Sale","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Sports","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("All Clothings","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Coat & Jackets","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Jeans","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Polo Shirts","http://catalogbaseurltobereplaced/images/products/1.png"),
+                new("Shorts","http://catalogbaseurltobereplaced/images/products/1.png")
+
             };
     }
 
@@ -83,18 +114,18 @@ public class CatalogContextSeed
     {
         return new List<CatalogItem>
             {
-                new(2,2, ".NET Bot Black Sweatshirt", ".NET Bot Black Sweatshirt", 19.5M,  "http://catalogbaseurltobereplaced/images/products/1.png"),
-                new(1,2, ".NET Black & White Mug", ".NET Black & White Mug", 8.50M, "http://catalogbaseurltobereplaced/images/products/2.png"),
-                new(2,5, "Prism White T-Shirt", "Prism White T-Shirt", 12,  "http://catalogbaseurltobereplaced/images/products/3.png"),
-                new(2,2, ".NET Foundation Sweatshirt", ".NET Foundation Sweatshirt", 12, "http://catalogbaseurltobereplaced/images/products/4.png"),
-                new(3,5, "Roslyn Red Sheet", "Roslyn Red Sheet", 8.5M, "http://catalogbaseurltobereplaced/images/products/5.png"),
-                new(2,2, ".NET Blue Sweatshirt", ".NET Blue Sweatshirt", 12, "http://catalogbaseurltobereplaced/images/products/6.png"),
-                new(2,5, "Roslyn Red T-Shirt", "Roslyn Red T-Shirt",  12, "http://catalogbaseurltobereplaced/images/products/7.png"),
-                new(2,5, "Kudu Purple Sweatshirt", "Kudu Purple Sweatshirt", 8.5M, "http://catalogbaseurltobereplaced/images/products/8.png"),
-                new(1,5, "Cup<T> White Mug", "Cup<T> White Mug", 12, "http://catalogbaseurltobereplaced/images/products/9.png"),
-                new(3,2, ".NET Foundation Sheet", ".NET Foundation Sheet", 12, "http://catalogbaseurltobereplaced/images/products/10.png"),
-                new(3,2, "Cup<T> Sheet", "Cup<T> Sheet", 8.5M, "http://catalogbaseurltobereplaced/images/products/11.png"),
-                new(2,5, "Prism White TShirt", "Prism White TShirt", 12, "http://catalogbaseurltobereplaced/images/products/12.png")
+                new(2,2,2, "Addida Slim work", "Addida Slim work", 9000.00M,  "http://catalogbaseurltobereplaced/images/products/1.png"),
+                new(1,2,2, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/2.png"),
+                new(2,2,5, "Addida Slim work", "Prism White T-Shirt", 9000.00M,  "http://catalogbaseurltobereplaced/images/products/3.png"),
+                new(2,2,2, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/4.png"),
+                new(3,2,5, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/5.png"),
+                new(2,2,2, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/6.png"),
+                new(2,2,5, "Addida Slim work", "Addida Slim work",  9000.00M, "http://catalogbaseurltobereplaced/images/products/7.png"),
+                new(2,2,5, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/8.png"),
+                new(1,2,5, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/9.png"),
+                new(3,2,2, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/10.png"),
+                new(3,2,2, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/11.png"),
+                new(2,2,5, "Addida Slim work", "Addida Slim work", 9000.00M, "http://catalogbaseurltobereplaced/images/products/12.png")
             };
     }
 }

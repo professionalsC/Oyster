@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using BlazorShared.Models;
 using Microsoft.AspNetCore.Http;
 using Oyster.ApplicationCore.Exceptions;
+using Oyster.ApplicationCore.Models;
 
 namespace Oyster.PublicApi.MiddleWares;
 

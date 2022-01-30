@@ -34,11 +34,8 @@ public class List : BaseAsyncEndpoint
     public override async Task<ActionResult<ListCatalogBrandsResponse>> HandleAsync(CancellationToken cancellationToken)
     {
         var response = new ListCatalogBrandsResponse();
-
         var items = await _catalogBrandRepository.ListAsync(cancellationToken);
-
         response.CatalogBrands.AddRange(items.Select(_mapper.Map<CatalogBrandDto>));
-
         return Ok(response);
     }
 }

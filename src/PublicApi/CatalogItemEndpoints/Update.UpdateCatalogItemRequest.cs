@@ -9,6 +9,8 @@ public class UpdateCatalogItemRequest : BaseRequest
     [Range(1, 10000)]
     public int CatalogBrandId { get; set; }
     [Range(1, 10000)]
+    public int CatalogGenderTypeId { get; set; }
+    [Range(1, 10000)]
     public int CatalogTypeId { get; set; }
     [Required]
     public string Description { get; set; }

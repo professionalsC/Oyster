@@ -8,15 +8,20 @@ public class AppIdentityDbContextSeed
 {
     public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
-        await roleManager.CreateAsync(new IdentityRole(BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS));
+        await roleManager.CreateAsync(new IdentityRole(Constants.Roles.ADMINISTRATORS));
+        await roleManager.CreateAsync(new IdentityRole(Constants.Roles.MERCHANTS));
+        await roleManager.CreateAsync(new IdentityRole(Constants.Roles.CUSTOMERS));
 
-        var defaultUser = new ApplicationUser { UserName = "demouser@microsoft.com", Email = "demouser@microsoft.com" };
-        await userManager.CreateAsync(defaultUser, AuthorizationConstants.DEFAULT_PASSWORD);
+        string customerUserName = "9818068718";
+        var customerUser = new ApplicationUser { UserName = customerUserName, Email = "demouser@microsoft.com" };
+        await userManager.CreateAsync(customerUser, AuthorizationConstants.DEFAULT_PASSWORD);
+        customerUser = await userManager.FindByNameAsync(customerUserName);
+        await userManager.AddToRoleAsync(customerUser, Constants.Roles.ADMINISTRATORS);
 
         string adminUserName = "admin@microsoft.com";
         var adminUser = new ApplicationUser { UserName = adminUserName, Email = adminUserName };
         await userManager.CreateAsync(adminUser, AuthorizationConstants.DEFAULT_PASSWORD);
         adminUser = await userManager.FindByNameAsync(adminUserName);
-        await userManager.AddToRoleAsync(adminUser, BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS);
+        await userManager.AddToRoleAsync(adminUser, Constants.Roles.ADMINISTRATORS);
     }
 }

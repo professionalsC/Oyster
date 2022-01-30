@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
-using BlazorShared;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Oyster.ApplicationCore;
 
 namespace Oyster.PublicApi;
 
@@ -47,6 +47,8 @@ public class Startup
 
     public void ConfigureDockerServices(IServiceCollection services)
     {
+        services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+        services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
         ConfigureDevelopmentServices(services);
     }
 
@@ -185,8 +187,13 @@ public class Startup
         app.UseHttpsRedirection();
 
         app.UseRouting();
+        app.UseCors(x => x
+               .SetIsOriginAllowed(origin => true)
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials());
 
-        app.UseCors(CORS_POLICY);
+        //app.UseCors(CORS_POLICY);
 
         app.UseAuthorization();
 

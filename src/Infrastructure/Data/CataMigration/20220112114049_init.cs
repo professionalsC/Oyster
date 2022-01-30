@@ -3,14 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Data.Migrations
+namespace Oyster.Infrastructure.Data.CataMigration
 {
-    public partial class InitialMigration : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateSequence(
                 name: "catalog_brand_hilo",
+                incrementBy: 10);
+
+            migrationBuilder.CreateSequence(
+                name: "catalog_gender_type_hilo",
                 incrementBy: 10);
 
             migrationBuilder.CreateSequence(
@@ -39,11 +43,24 @@ namespace Oyster.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Brand = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PictureUri = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CatalogBrands", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CatalogGenderTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    GenderType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CatalogGenderTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,6 +126,7 @@ namespace Oyster.Infrastructure.Data.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PictureUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CatalogTypeId = table.Column<int>(type: "int", nullable: false),
+                    CatalogGenderTypeId = table.Column<int>(type: "int", nullable: false),
                     CatalogBrandId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -118,6 +136,12 @@ namespace Oyster.Infrastructure.Data.Migrations
                         name: "FK_Catalog_CatalogBrands_CatalogBrandId",
                         column: x => x.CatalogBrandId,
                         principalTable: "CatalogBrands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Catalog_CatalogGenderTypes_CatalogGenderTypeId",
+                        column: x => x.CatalogGenderTypeId,
+                        principalTable: "CatalogGenderTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -162,6 +186,11 @@ namespace Oyster.Infrastructure.Data.Migrations
                 column: "CatalogBrandId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Catalog_CatalogGenderTypeId",
+                table: "Catalog",
+                column: "CatalogGenderTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Catalog_CatalogTypeId",
                 table: "Catalog",
                 column: "CatalogTypeId");
@@ -190,6 +219,9 @@ namespace Oyster.Infrastructure.Data.Migrations
                 name: "CatalogBrands");
 
             migrationBuilder.DropTable(
+                name: "CatalogGenderTypes");
+
+            migrationBuilder.DropTable(
                 name: "CatalogTypes");
 
             migrationBuilder.DropTable(
@@ -197,6 +229,9 @@ namespace Oyster.Infrastructure.Data.Migrations
 
             migrationBuilder.DropSequence(
                 name: "catalog_brand_hilo");
+
+            migrationBuilder.DropSequence(
+                name: "catalog_gender_type_hilo");
 
             migrationBuilder.DropSequence(
                 name: "catalog_hilo");

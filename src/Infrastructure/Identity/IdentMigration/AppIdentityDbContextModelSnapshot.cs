@@ -8,7 +8,7 @@ using Oyster.Infrastructure.Identity;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Identity.Migrations
+namespace Oyster.Infrastructure.Identity.IdentMigration
 {
     [DbContext(typeof(AppIdentityDbContext))]
     partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
@@ -17,7 +17,7 @@ namespace Oyster.Infrastructure.Identity.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);

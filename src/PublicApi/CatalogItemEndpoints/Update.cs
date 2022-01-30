@@ -5,13 +5,14 @@ using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Oyster.ApplicationCore.Constants;
 using Oyster.ApplicationCore.Entities;
 using Oyster.ApplicationCore.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Oyster.PublicApi.CatalogItemEndpoints;
 
-[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Roles = Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class Update : BaseAsyncEndpoint
     .WithRequest<UpdateCatalogItemRequest>
     .WithResponse<UpdateCatalogItemResponse>
@@ -40,6 +41,7 @@ public class Update : BaseAsyncEndpoint
 
         existingItem.UpdateDetails(request.Name, request.Description, request.Price);
         existingItem.UpdateBrand(request.CatalogBrandId);
+        existingItem.UpdateGenderType(request.CatalogGenderTypeId);
         existingItem.UpdateType(request.CatalogTypeId);
 
         await _itemRepository.UpdateAsync(existingItem, cancellationToken);
