@@ -29,7 +29,7 @@ public class Create : BaseAsyncEndpoint
         _uriComposer = uriComposer;
     }
 
-    [HttpPost("api/catalog-brandss")]
+    [HttpPost("api/catalog-brands")]
     [SwaggerOperation(
         Summary = "Creates a new Catalog Brand",
         Description = "Creates a new Catalog Brand",
@@ -44,10 +44,10 @@ public class Create : BaseAsyncEndpoint
         var existingCataloogItem = await _itemRepository.CountAsync(catalogBrandNameSpecification, cancellationToken);
         if (existingCataloogItem > 0)
         {
-            throw new DuplicateException($"A catalogItem with name {request.Brand} already exists");
+            throw new DuplicateException($"A catalogBrand with name {request.Brand} already exists");
         }
 
-        var newItem = new CatalogBrand(request.Brand,request.PictureUri);
+        var newItem = new CatalogBrand(request.Brand,request.PictureUri,request.BannerPictureUri,request.Status);
         newItem = await _itemRepository.AddAsync(newItem, cancellationToken);
 
         if (newItem.Id != 0)
@@ -57,6 +57,7 @@ public class Create : BaseAsyncEndpoint
             //  In production, we recommend uploading to a blob storage and deliver the image via CDN after a verification process.
 
             newItem.UpdatePictureUri("eCatalog-brand-default.png");
+            newItem.UpdateBannerPictureUri("eCatalog-brand-banner-default.png");
             await _itemRepository.UpdateAsync(newItem, cancellationToken);
         }
 
@@ -64,7 +65,9 @@ public class Create : BaseAsyncEndpoint
         {
             Id = newItem.Id,
             Brand = newItem.Brand,
-            PictureUri = _uriComposer.ComposePicUri(newItem.PictureUri)
+            PictureUri = _uriComposer.ComposePicUri(newItem.PictureUri),
+            BannerPictureUri = _uriComposer.ComposePicUri(newItem.BannerPictureUri),
+            Status = newItem.Status,
         };
         response.CatalogBrand = dto;
         return response;

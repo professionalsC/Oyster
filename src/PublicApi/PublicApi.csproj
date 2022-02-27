@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CatalogTypeEndpoints\ListPaged.ListPagedCatalogTypeRequest.cs" />
+    <Compile Remove="CatalogTypeEndpoints\ListPaged.ListPagedCatalogTypeResponse.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="3.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />

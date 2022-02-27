@@ -41,7 +41,7 @@ public class List : BaseAsyncEndpoint
             response.CatalogGenderTypes.AddRange(items.Select(_mapper.Map<CatalogGenderTypeDto>));
 
         }
-        catch (System.Exception ex)
+        catch (System.Exception )
         {
 
             throw;

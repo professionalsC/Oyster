@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oyster.ApplicationCore.Extensions;
 
 namespace Oyster.PublicApi.CatalogTypeEndpoints;
 
@@ -14,4 +15,5 @@ public class ListCatalogTypesResponse : BaseResponse
     }
 
     public List<CatalogTypeDto> CatalogTypes { get; set; } = new List<CatalogTypeDto>();
+    public int PageCount { get; set; }
 }

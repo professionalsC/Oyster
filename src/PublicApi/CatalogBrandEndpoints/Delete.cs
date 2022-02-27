@@ -23,7 +23,7 @@ public class Delete : BaseAsyncEndpoint
         _itemRepository = itemRepository;
     }
 
-    [HttpDelete("api/catalog-brands/{CatalogItemId}")]
+    [HttpDelete("api/catalog-brands/{CatalogBrandId}")]
     [SwaggerOperation(
         Summary = "Deletes a Catalog Brand",
         Description = "Deletes a Catalog Brand",

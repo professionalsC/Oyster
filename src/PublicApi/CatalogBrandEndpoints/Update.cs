@@ -39,7 +39,7 @@ public class Update : BaseAsyncEndpoint
 
         var existingItem = await _itemRepository.GetByIdAsync(request.Id, cancellationToken);
 
-        existingItem.UpdateBrand(request.Brand);        
+        existingItem.UpdateBrand(request.Brand,request.Status);        
 
         await _itemRepository.UpdateAsync(existingItem, cancellationToken);
 
@@ -47,7 +47,10 @@ public class Update : BaseAsyncEndpoint
         {
             Id = existingItem.Id,
             Brand = existingItem.Brand,
-            PictureUri = _uriComposer.ComposePicUri(existingItem.PictureUri)
+            PictureUri = _uriComposer.ComposePicUri(existingItem.PictureUri),
+            BannerPictureUri = _uriComposer.ComposePicUri(existingItem.BannerPictureUri),
+            Status = existingItem.Status
+
         };
         response.CatalogBrand = dto;
         return response;

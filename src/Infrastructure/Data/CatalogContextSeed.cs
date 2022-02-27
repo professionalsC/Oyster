@@ -67,17 +67,17 @@ public class CatalogContextSeed
     {
         return new List<CatalogBrand>
             {
-                new("Adidash","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Anta","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("American Eagle","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Burberry","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Calvin Clan","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Gucci","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Dior","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Luis Vuitton","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Prada","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Tommy Hilfiger","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Zara","http://catalogbaseurltobereplaced/images/products/1.png")
+                new("Adidash","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Anta","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("American Eagle","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Burberry","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Calvin Clan","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Gucci","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Dior","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Luis Vuitton","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Prada","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Tommy Hilfiger","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true),
+                new("Zara","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png",true)
             };
     }
     static IEnumerable<CatalogGenderType> GetPreconfiguredCatalogGenderTypes()
@@ -94,18 +94,18 @@ public class CatalogContextSeed
     {
         return new List<CatalogType>
             {
-                new("New Arrival","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Clothing","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Shoes","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Accessories","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Maternity","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Sale","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Sports","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("All Clothings","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Coat & Jackets","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Jeans","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Polo Shirts","http://catalogbaseurltobereplaced/images/products/1.png"),
-                new("Shorts","http://catalogbaseurltobereplaced/images/products/1.png")
+                new("New Arrival","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","New Arrival",null,true),
+                new("Clothing","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Clothing",null,true),
+                new("Shoes","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Shoes",null,true),
+                new("Accessories","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Accessories",null,true),
+                new("Maternity","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Maternity",null,true),
+                new("Sale","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Sale",null,true),
+                new("Sports","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Sports",null,true),
+                new("All Clothings","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","All Clothings",null,true),
+                new("Coat & Jackets","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Coat & Jackets",null,true),
+                new("Jeans","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Jeans",null,true),
+                new("Polo Shirts","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Polo Shirts",null,true),
+                new("Shorts","http://catalogbaseurltobereplaced/images/products/1.png","http://catalogbaseurltobereplaced/images/products/1.png","Shorts",null,true)
 
             };
     }

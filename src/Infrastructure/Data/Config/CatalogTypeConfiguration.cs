@@ -17,5 +17,19 @@ public class CatalogTypeConfiguration : IEntityTypeConfiguration<CatalogType>
         builder.Property(cb => cb.Type)
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.Property(ci => ci.PictureUri)
+            .IsRequired(false);
+
+        builder.Property(ci => ci.BannerPictureUri)
+           .IsRequired(false);
+
+        builder.Property(cb => cb.Description)
+           .IsRequired()
+           .HasMaxLength(int.MaxValue);
+
+        builder.HasOne(ci => ci.ParentCatalogType)
+            .WithMany()
+            .HasForeignKey(ci => ci.ParentCatalogTypeId);
     }
 }

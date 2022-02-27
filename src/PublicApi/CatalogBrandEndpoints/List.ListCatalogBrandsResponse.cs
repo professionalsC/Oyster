@@ -14,4 +14,6 @@ public class ListCatalogBrandsResponse : BaseResponse
     }
 
     public List<CatalogBrandDto> CatalogBrands { get; set; } = new List<CatalogBrandDto>();
+    public int PageCount { get; set; }
+
 }

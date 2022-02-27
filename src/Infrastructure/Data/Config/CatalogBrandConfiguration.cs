@@ -17,5 +17,14 @@ public class CatalogBrandConfiguration : IEntityTypeConfiguration<CatalogBrand>
         builder.Property(cb => cb.Brand)
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.Property(ci => ci.PictureUri)
+            .IsRequired(false);
+
+        builder.Property(ci => ci.BannerPictureUri)
+           .IsRequired(false);
+
+        builder.Property(ci => ci.Status)
+          .IsRequired(true);
     }
 }
