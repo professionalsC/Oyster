@@ -20,6 +20,10 @@ public class CatalogContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<BasketItem> BasketItems { get; set; }
+    public DbSet<ResourceModule> ResourceModules { get; set; }
+    public DbSet<ResourceModuleConsent> ResourceModuleConsents { get; set; }
+
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

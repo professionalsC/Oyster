@@ -12,5 +12,5 @@ public class CreateMerchantResponse:BaseResponse
     {
     }
 
-    public MerchantDto CatalogItem { get; set; }
+    public MerchantDto Merchant { get; set; }
 }

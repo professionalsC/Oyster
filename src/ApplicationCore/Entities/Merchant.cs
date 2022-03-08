@@ -23,6 +23,7 @@ public class Merchant : BaseEntity, IAggregateRoot
     public string Website { get; set; }
     public string Email { get; set; }
     public string ContactNumber { get; set; }
+    public bool Status { get; set; }
     public Merchant(string name,
         string pictureUri,
         int countryId,
@@ -32,7 +33,8 @@ public class Merchant : BaseEntity, IAggregateRoot
         string streetAddress,
         string website,
         string email,
-        string contactNumber)
+        string contactNumber,
+        bool status)
     {
         Name = name;
         PictureUri = pictureUri;
@@ -44,7 +46,7 @@ public class Merchant : BaseEntity, IAggregateRoot
         Website = website;
         Email = email;
         ContactNumber = contactNumber;
-
+        Status = status;
     }
     public void UpdateDetails(string name)
     {

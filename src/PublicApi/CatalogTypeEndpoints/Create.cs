@@ -52,8 +52,8 @@ public class Create : BaseAsyncEndpoint
         if (newItem.Id != 0)
         {
 
-            newItem.UpdatePictureUri("eCatalog-type-default.png");
-            newItem.UpdateBannerPictureUri("eCatalog-type-banner-default.png");
+            newItem.UpdatePictureUri(request.PictureUri);
+            newItem.UpdateBannerPictureUri(request.BannerPictureUri);
             await _itemRepository.UpdateAsync(newItem, cancellationToken);
         }
 

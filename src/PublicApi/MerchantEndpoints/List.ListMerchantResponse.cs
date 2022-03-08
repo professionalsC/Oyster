@@ -14,4 +14,6 @@ public class ListMerchantResponse : BaseResponse
     }
 
     public List<MerchantDto> Merchants { get; set; } = new List<MerchantDto>();
+    public int PageCount { get; set; }
+
 }

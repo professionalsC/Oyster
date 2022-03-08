@@ -55,7 +55,7 @@ public class Create : BaseAsyncEndpoint
             //  pointed out by the community. More info in this issue: https://github.com/dotnet-architecture/oyster/issues/537 
             //  In production, we recommend uploading to a blob storage and deliver the image via CDN after a verification process.
 
-            newItem.UpdatePictureUri("eCatalog-item-default.png");
+            newItem.UpdatePictureUri(request.PictureUri);
             await _itemRepository.UpdateAsync(newItem, cancellationToken);
         }
 

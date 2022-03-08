@@ -12,11 +12,11 @@ public class Delete : BaseAsyncEndpoint
     .WithRequest<DeleteMerchantRequest>
     .WithResponse<DeleteMerchantResponse>
 {
-    private readonly IRepository<Merchant> _merchantRepository;
+    private readonly IRepository<Merchant> _itemRepository;
 
-    public Delete(IRepository<Merchant> merchantRepository)
+    public Delete(IRepository<Merchant> itemRepository)
     {
-        _merchantRepository = merchantRepository;
+        _itemRepository = itemRepository;
     }
 
     [HttpDelete("api/merchant/{MerchantId}")]
@@ -26,8 +26,15 @@ public class Delete : BaseAsyncEndpoint
         OperationId = "Merchant.Delete",
         Tags = new[] { "MerchantEndpoints" })
     ]
-    public override Task<ActionResult<DeleteMerchantResponse>> HandleAsync(DeleteMerchantRequest request, CancellationToken cancellationToken = default)
+    public override async Task<ActionResult<DeleteMerchantResponse>> HandleAsync(DeleteMerchantRequest request, CancellationToken cancellationToken = default)
     {
-        throw new System.NotImplementedException();
+        var response = new DeleteMerchantResponse(request.CorrelationId());
+
+        var itemToDelete = await _itemRepository.GetByIdAsync(request.MerchantId, cancellationToken);
+        if (itemToDelete is null) return NotFound();
+
+        await _itemRepository.DeleteAsync(itemToDelete, cancellationToken);
+
+        return Ok(response);
     }
 }

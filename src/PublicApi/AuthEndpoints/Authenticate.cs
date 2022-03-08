@@ -15,13 +15,15 @@ public class Authenticate : BaseAsyncEndpoint
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ITokenClaimsService _tokenClaimsService;
-   
+    private readonly UserManager<ApplicationUser> _userManager;
 
 
-    public Authenticate(SignInManager<ApplicationUser> signInManager,ITokenClaimsService tokenClaimsService)
+
+    public Authenticate(SignInManager<ApplicationUser> signInManager,ITokenClaimsService tokenClaimsService, UserManager<ApplicationUser> userManager)
     {
         _signInManager = signInManager;
         _tokenClaimsService = tokenClaimsService;
+         _userManager=userManager;
     }
 
     [HttpPost("api/authenticate")]
@@ -46,11 +48,15 @@ public class Authenticate : BaseAsyncEndpoint
         response.IsNotAllowed = result.IsNotAllowed;
         response.RequiresTwoFactor = result.RequiresTwoFactor;
         response.Username = request.Username;
+        var user = await _userManager.FindByNameAsync(request.Username);
+
+        var roles = await _userManager.GetRolesAsync(user);
 
 
         if (result.Succeeded)
         {
             response.Token = await _tokenClaimsService.GetTokenAsync(request.Username);
+            response.Role= roles[0];
         }
         return response;
     } 

@@ -12,12 +12,12 @@ public class GetById : BaseAsyncEndpoint
     .WithRequest<GetByIdMerchantRequest>
     .WithResponse<GetByIdMerchantResponse>
 {
-    private readonly IRepository<Merchant> _merchantRepository;
+    private readonly IRepository<Merchant> _itemRepository;
     private readonly IUriComposer _uriComposer;
 
-    public GetById(IRepository<Merchant> merchantRepository, IUriComposer uriComposer)
+    public GetById(IRepository<Merchant> itemRepository, IUriComposer uriComposer)
     {
-        _merchantRepository = merchantRepository;
+        _itemRepository = itemRepository;
         _uriComposer = uriComposer;
     }
 
@@ -28,8 +28,28 @@ public class GetById : BaseAsyncEndpoint
         OperationId = "merchants.GetById",
         Tags = new[] { "MerchantEndpoints" })
     ]
-    public override Task<ActionResult<GetByIdMerchantResponse>> HandleAsync(GetByIdMerchantRequest request, CancellationToken cancellationToken = default)
+    public override async Task<ActionResult<GetByIdMerchantResponse>> HandleAsync(GetByIdMerchantRequest request, CancellationToken cancellationToken = default)
     {
-        throw new System.NotImplementedException();
+        var response = new GetByIdMerchantResponse(request.CorrelationId());
+
+        var item = await _itemRepository.GetByIdAsync(request.MerchantId, cancellationToken);
+        if (item is null) return NotFound();
+
+        response.Merchant = new MerchantDto
+        {
+            Id = item.Id,
+            Name = item.Name,
+            PictureUri = _uriComposer.ComposePicUri(item.PictureUri),
+            CountryId = item.CountryId,
+            ProvinceId = item.ProvinceId,
+            DistrictId = item.DistrictId,
+            City   = item.City,
+            StreetAddress = item.StreetAddress,
+            ContactNumber = item.ContactNumber,
+            Email = item.Email, 
+            Website = item.Website,
+            Status=item.Status,
+        };
+        return Ok(response);
     }
 }

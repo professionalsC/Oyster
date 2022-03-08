@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Migrations
+namespace Oyster.Infrastructure.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class _001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -107,6 +107,21 @@ namespace Oyster.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ResourceModules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Aliase = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceModules", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BasketItems",
                 columns: table => new
                 {
@@ -187,6 +202,29 @@ namespace Oyster.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ResourceModuleConsents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResourceModuleId = table.Column<int>(type: "int", nullable: false),
+                    IsViewConsent = table.Column<bool>(type: "bit", nullable: false),
+                    IsUpdateConsent = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleteConsent = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceModuleConsents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResourceModuleConsents_ResourceModules_ResourceModuleId",
+                        column: x => x.ResourceModuleId,
+                        principalTable: "ResourceModules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_BasketItems_BasketId",
                 table: "BasketItems",
@@ -216,6 +254,11 @@ namespace Oyster.Infrastructure.Migrations
                 name: "IX_OrderItems_OrderId",
                 table: "OrderItems",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceModuleConsents_ResourceModuleId",
+                table: "ResourceModuleConsents",
+                column: "ResourceModuleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -228,6 +271,9 @@ namespace Oyster.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "ResourceModuleConsents");
 
             migrationBuilder.DropTable(
                 name: "Baskets");
@@ -243,6 +289,9 @@ namespace Oyster.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "ResourceModules");
 
             migrationBuilder.DropSequence(
                 name: "catalog_brand_hilo");

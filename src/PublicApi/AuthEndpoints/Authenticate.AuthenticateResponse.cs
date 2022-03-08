@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Oyster.ApplicationCore.Entities;
 
 namespace Oyster.PublicApi.AuthEndpoints;
 
@@ -17,4 +19,5 @@ public class AuthenticateResponse : BaseResponse
     public bool IsLockedOut { get; set; } = false;
     public bool IsNotAllowed { get; set; } = false;
     public bool RequiresTwoFactor { get; set; } = false;
+    public string Role { get; set; }
 }

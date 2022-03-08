@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oyster.Infrastructure.Data;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Migrations
+namespace Oyster.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20220210172955_init")]
-    partial class init
+    partial class CatalogContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,6 +248,58 @@ namespace Oyster.Infrastructure.Migrations
                     b.ToTable("OrderItems");
                 });
 
+            modelBuilder.Entity("Oyster.ApplicationCore.Entities.ResourceModule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Aliase")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResourceModules");
+                });
+
+            modelBuilder.Entity("Oyster.ApplicationCore.Entities.ResourceModuleConsent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsDeleteConsent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsUpdateConsent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsViewConsent")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResourceModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResourceModuleId");
+
+                    b.ToTable("ResourceModuleConsents");
+                });
+
             modelBuilder.Entity("Oyster.ApplicationCore.Entities.BasketAggregate.BasketItem", b =>
                 {
                     b.HasOne("Oyster.ApplicationCore.Entities.BasketAggregate.Basket", null)
@@ -368,6 +418,17 @@ namespace Oyster.Infrastructure.Migrations
                         });
 
                     b.Navigation("ItemOrdered");
+                });
+
+            modelBuilder.Entity("Oyster.ApplicationCore.Entities.ResourceModuleConsent", b =>
+                {
+                    b.HasOne("Oyster.ApplicationCore.Entities.ResourceModule", "ResourceModule")
+                        .WithMany()
+                        .HasForeignKey("ResourceModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResourceModule");
                 });
 
             modelBuilder.Entity("Oyster.ApplicationCore.Entities.BasketAggregate.Basket", b =>

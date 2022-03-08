@@ -47,4 +47,6 @@ public class CatalogBrand : BaseEntity, IAggregateRoot
         Brand = Brand;
         Status = status;
     }
+
+   
 }
