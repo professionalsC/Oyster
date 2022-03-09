@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Data.Migrations
+namespace Oyster.Infrastructure.Data.Migration001
 {
-    public partial class _001 : Migration
+    public partial class _0001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

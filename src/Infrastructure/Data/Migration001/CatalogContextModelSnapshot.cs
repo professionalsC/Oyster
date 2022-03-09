@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oyster.Infrastructure.Data;
 
 #nullable disable
 
-namespace Oyster.Infrastructure.Data.Migrations
+namespace Oyster.Infrastructure.Data.Migration001
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20220308104225_001")]
-    partial class _001
+    partial class CatalogContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
